@@ -24,6 +24,38 @@ class _ExplicitAnimationsScreenState extends State<ExplicitAnimationsScreen>
   //but,애니메이션 컨트롤러의 매 스텝마다 setState를 하는 것은 성능적으로 좋지 않음
   //그래서 컨트롤러가 변경되었을 때 UI와 통신하는 것에 특화된 위젯 :
 
+  late final Animation<Decoration> _decoration = DecorationTween(
+    begin: BoxDecoration(
+      color: const Color.fromARGB(255, 171, 255, 242),
+      borderRadius: BorderRadius.circular(20),
+    ),
+    end: BoxDecoration(
+      color: const Color.fromARGB(255, 246, 197, 236),
+      borderRadius: BorderRadius.circular(120),
+    ),
+  ).animate(_curve);
+
+  late final Animation<double> _rotation = Tween(
+    begin: 0.0,
+    end: 1.5,
+  ).animate(_curve);
+
+  late final Animation<double> _scale = Tween(
+    begin: 1.0,
+    end: 1.2,
+  ).animate(_curve);
+
+  late final Animation<Offset> _position = Tween(
+    begin: const Offset(0, -0.1),
+    end: const Offset(0, -0.3),
+  ).animate(_curve);
+
+//속성을 초기화할때 this를 쓸거면 late를 사용해야 한다.
+  late final CurvedAnimation _curve = CurvedAnimation(
+    parent: _animationController,
+    curve: Curves.elasticOut,
+  );
+
   void _play() {
     _animationController.forward();
   }
